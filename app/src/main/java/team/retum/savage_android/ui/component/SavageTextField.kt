@@ -35,7 +35,7 @@ fun SavageTextField(
 ) {
     var focused by remember { mutableStateOf(false) }
     val alpha by animateFloatAsState(
-        targetValue = if (!showTitle && value.isEmpty()) 1f
+        targetValue = if (!showTitle && value.isEmpty() && !focused) 1f
         else 0f,
         label = "",
     )
