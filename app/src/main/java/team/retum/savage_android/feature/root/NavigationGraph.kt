@@ -1,12 +1,10 @@
-package com.softpie.karabiner.ui.root
+package team.retum.savage_android.feature.root
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import team.retum.savage_android.feature.onboarding.StartScreen
-import team.retum.savage_android.feature.root.NavGroup
 
 
 @Composable
