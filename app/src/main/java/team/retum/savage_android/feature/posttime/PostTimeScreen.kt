@@ -38,8 +38,6 @@ import team.retum.savage_android.ui.theme.savageClickable
 @Composable
 fun PostTimeScreen(navController: NavController) {
 
-    val state = rememberTimePickerState()
-
     SavageAppBar(
         callback = {
             navController.popBackStack()
