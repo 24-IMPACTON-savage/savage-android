@@ -1,7 +1,6 @@
 package team.retum.savage_android.feature.onboarding.join
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
@@ -41,8 +40,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 import team.retum.savage_android.data.RetrofitClient
-import team.retum.savage_android.data.api.AuthApi
-import team.retum.savage_android.model.request.SignInRequest
 import team.retum.savage_android.model.request.SignUpRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -264,7 +261,7 @@ fun Join2Screen(
                                     RetrofitClient.userApi.signUp(
                                         SignUpRequest(
                                             name = name,
-                                            number = tel,
+                                            contact = tel,
                                             address = getAddress(context, latitude!!, longitude!!)
                                         )
                                     )

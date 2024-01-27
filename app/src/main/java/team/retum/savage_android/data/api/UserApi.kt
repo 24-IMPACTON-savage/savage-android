@@ -7,7 +7,7 @@ import retrofit2.http.POST
 import team.retum.savage_android.model.request.SignUpRequest
 
 interface UserApi {
-    @POST("/user/signUp")
+    @POST("/user/senior")
     fun signUp(
         @Body signUpRequest: SignUpRequest
     )
