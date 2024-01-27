@@ -258,7 +258,7 @@ fun Join2Screen(
                             modifier = Modifier.padding(top = 20.dp, bottom = 30.dp),
                             onClick = {
                                 coroutine.launch {
-                                    RetrofitClient.userApi.signUp(
+                                    val response = RetrofitClient.userApi.signUp(
                                         SignUpRequest(
                                             name = name,
                                             contact = tel,

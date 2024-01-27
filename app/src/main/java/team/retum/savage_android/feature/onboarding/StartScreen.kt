@@ -30,7 +30,9 @@ fun StartScreen(
     navController: NavController
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.White),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -39,6 +41,8 @@ fun StartScreen(
             text = "건강한 노동을 시작해 봐요!",
             style = SavageTypography.HeadLine1
         )
+        Spacer(modifier = Modifier.weight(2f))
+        Image(painter = painterResource(id = R.drawable.a), contentDescription = null)
         Spacer(modifier = Modifier.weight(1f))
 
         Image(

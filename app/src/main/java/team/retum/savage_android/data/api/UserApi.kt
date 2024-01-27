@@ -9,15 +9,15 @@ import team.retum.savage_android.model.request.SignUpRequest
 
 interface UserApi {
     @POST("/user/senior")
-    fun signUp(
+    suspend fun signUp(
         @Body signUpRequest: SignUpRequest
-    ): BaseResponse<Unit>
+    ): BaseResponse<Int>
 
     @GET("/user")
-    fun getUser(): BaseResponse<Boolean>
+    suspend fun getUser(): BaseResponse<Boolean>
 
     @POST("/user/visa")
-    fun authenticationVisa(
+    suspend fun authenticationVisa(
         @Body passport: String
     ): BaseResponse<Boolean>
 }
