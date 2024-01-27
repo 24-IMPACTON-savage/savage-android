@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import team.retum.savage_android.feature.complete.CompleteScreen
 import team.retum.savage_android.feature.findworker.FindWorkerScreen
 import team.retum.savage_android.feature.loading.LoadingScreen
 import team.retum.savage_android.feature.onboarding.StartScreen
@@ -19,7 +20,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavGroup.Main.Loading.id,
+        startDestination = NavGroup.Onboarding.Start.id,
     ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
@@ -44,10 +45,12 @@ fun NavigationGraph(
         composable(NavGroup.Main.Loading.id) {
             LoadingScreen()
         }
+        composable(NavGroup.Main.Complete.id) {
+            CompleteScreen()
+        }
     }
 }
 
 private val Start = NavGroup.Onboarding.Start
 
-fun getStartDestination() =
-    /*if (enableAutoLogin) NavGroup.Main.MAIN.id else */Start.id
+fun getStartDestination() =/*if (enableAutoLogin) NavGroup.Main.MAIN.id else */Start.id

@@ -12,5 +12,6 @@ sealed class NavGroup(val group: String) {
     sealed class Main(val id: String) : NavGroup("main") {
         data object Map : Main(id = "map")
         data object Loading : Main(id = "loading")
+        data object Complete: Main(id = "complete")
     }
 }
