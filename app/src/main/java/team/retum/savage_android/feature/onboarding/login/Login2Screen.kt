@@ -1,5 +1,6 @@
 package team.retum.savage_android.feature.onboarding.login
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import team.retum.savage_android.data.RetrofitClient
 import team.retum.savage_android.feature.root.NavGroup
+import team.retum.savage_android.model.request.SignInRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.component.SavageTextField
@@ -39,7 +42,8 @@ private fun Title() {
 
 @Composable
 fun Login2Screen(
-    navController: NavController
+    navController: NavController,
+    name: String,
 ) {
 
     var tel by remember { mutableStateOf("") }
@@ -63,7 +67,8 @@ fun Login2Screen(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
                 onClick = {
                     if (tel.isNotBlank()) {
-                        
+                        Log.d("로그", "Login2Screen: $name, $tel")
+                        RetrofitClient.authApi.signIn(SignInRequest(name, tel))
                     } else {
                         // handling
                     }

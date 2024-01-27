@@ -63,7 +63,7 @@ fun Login1Screen(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
                 onClick = {
                     if (name.isNotBlank()) {
-                        navController.navigate(NavGroup.Onboarding.Login2.id)
+                        navController.navigate(NavGroup.Onboarding.Login2.id + "/${name}")
                     } else {
                         // handling
                     }

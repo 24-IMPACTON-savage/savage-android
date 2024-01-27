@@ -33,8 +33,9 @@ fun NavigationGraph(
         composable(NavGroup.Main.Map.id) {
             FindWorkerScreen()
         }
-        composable(NavGroup.Onboarding.Login2.id) {
-            Login2Screen(navController = navController)
+        composable(NavGroup.Onboarding.Login2.id + "/{name}") {
+            val name = it.arguments?.getString("name")
+            Login2Screen(navController = navController, name = name ?: "")
         }
         composable(NavGroup.Onboarding.Login1.id) {
             Login1Screen(navController = navController)

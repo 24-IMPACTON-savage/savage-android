@@ -38,6 +38,10 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import team.retum.savage_android.data.RetrofitClient
+import team.retum.savage_android.data.api.AuthApi
+import team.retum.savage_android.model.request.SignInRequest
+import team.retum.savage_android.model.request.SignUpRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.component.SavageTextField
@@ -102,7 +106,7 @@ fun Join2Screen(
         val areGranted = permissionsMap.values.reduce { acc, next -> acc && next }
         isAllowLocationPermission = areGranted
     }
-    
+
     // 내 위치 조회 요청 클라이언트
     val fusedLocationClient by remember {
         mutableStateOf(
@@ -111,11 +115,11 @@ fun Join2Screen(
             )
         )
     }
-    
+
     var latitude by remember {
         mutableStateOf<Double?>(null)
     }
-    
+
     var longitude by remember {
         mutableStateOf<Double?>(null)
     }
@@ -127,7 +131,10 @@ fun Join2Screen(
 //                currentLocation = LatLng.from(location.latitude, location.longitude)
                 latitude = location.latitude
                 longitude = location.longitude
-                Log.d(TAG, "w - ${location.latitude} g - ${location.longitude} - onLocationResult() called")
+                Log.d(
+                    TAG,
+                    "w - ${location.latitude} g - ${location.longitude} - onLocationResult() called"
+                )
             }
         }
     }
@@ -135,7 +142,7 @@ fun Join2Screen(
     LaunchedEffect(true) {
         requestPermissions(context, locationPermissions, launcherMultiplePermissions)
     }
-    
+
     fun getAllowLocationPermission() = ActivityCompat.checkSelfPermission(
         context,
         Manifest.permission.ACCESS_FINE_LOCATION
@@ -215,40 +222,50 @@ fun Join2Screen(
 //                        Text("Hide bottom sheet")
 //                    }
 
-                        Column(
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        ) {
-                            Text(
-                                modifier = Modifier
-                                    .padding(top = 24.dp),
-                                text = if (latitude == null || longitude == null) "잠시만 기다려주세요" else getAddress(context, latitude!!, longitude!!),
-                                style = SavageTypography.Body3,
-                                color = SavageColor.Gray30
-                            )
-                            Text(
-                                text = "현재 계신 곳이 이 주소가 맞나요?",
-                                style = SavageTypography.HeadLine1,
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
-                            Text(
-                                text = "아니요, 여기가 아니에요",
-                                style = SavageTypography.Body2,
-                                color = SavageColor.Primary40,
-                                modifier = Modifier
-                                    .padding(top = 48.dp)
-                                    .savageClickable(rippleEnable = false) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 24.dp),
+                            text = if (latitude == null || longitude == null) "잠시만 기다려주세요" else getAddress(
+                                context,
+                                latitude!!,
+                                longitude!!
+                            ),
+                            style = SavageTypography.Body3,
+                            color = SavageColor.Gray30
+                        )
+                        Text(
+                            text = "현재 계신 곳이 이 주소가 맞나요?",
+                            style = SavageTypography.HeadLine1,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                        Text(
+                            text = "아니요, 여기가 아니에요",
+                            style = SavageTypography.Body2,
+                            color = SavageColor.Primary40,
+                            modifier = Modifier
+                                .padding(top = 48.dp)
+                                .savageClickable(rippleEnable = false) {
 
-                                    }
-                                    .align(Alignment.CenterHorizontally)
-                            )
-                            SavageButton(
-                                modifier = Modifier.padding(top = 20.dp, bottom = 24.dp),
-                                onClick = {
-
-                                },
-                                text = "네, 여기에요",
-                                isAbleClick = true
-                            )
+                                }
+                                .align(Alignment.CenterHorizontally)
+                        )
+                        SavageButton(
+                            modifier = Modifier.padding(top = 20.dp, bottom = 30.dp),
+                            onClick = {
+                                RetrofitClient.userApi.signUp(
+                                    SignUpRequest(
+                                        name = name,
+                                        number = tel,
+                                        address = getAddress(context, latitude!!, longitude!!)
+                                    )
+                                )
+                            },
+                            text = "네, 여기에요",
+                            isAbleClick = true
+                        )
                     }
                 }
             }

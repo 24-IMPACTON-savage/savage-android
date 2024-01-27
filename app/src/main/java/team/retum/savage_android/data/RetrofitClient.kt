@@ -6,6 +6,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import team.retum.savage_android.data.api.AuthApi
+import team.retum.savage_android.data.api.MainApi
+import team.retum.savage_android.data.api.PostApi
+import team.retum.savage_android.data.api.UserApi
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
@@ -26,6 +29,8 @@ object RetrofitClient {
         .build()
 
     val authApi by lazy { retrofit.create(AuthApi::class.java) }
-    
+    val mainApi by lazy { retrofit.create(MainApi::class.java) }
+    val postApi by lazy { retrofit.create(PostApi::class.java) }
+    val userApi by lazy { retrofit.create(UserApi::class.java) }
 
 }
