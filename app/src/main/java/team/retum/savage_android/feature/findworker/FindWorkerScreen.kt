@@ -1,8 +1,13 @@
 package team.retum.savage_android.feature.findworker
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -31,9 +36,14 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.app.ActivityCompat
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapView
+import com.kakao.vectormap.label.LabelOptions
+import com.kakao.vectormap.label.LabelStyle
+import com.kakao.vectormap.label.LabelStyles
 import team.retum.savage_android.R
 import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.theme.SavageColor
@@ -60,9 +70,7 @@ fun FindWorkerScreen() {
         ) {
             AndroidView(
                 factory = {
-                    initMapView(
-                        context = it,
-                    )
+                    initMapView(context = it)
                 },
             )
             Column(
@@ -75,13 +83,12 @@ fun FindWorkerScreen() {
                         )
                     )
                     .background(
-                        color = SavageColor.Primary30,
+                        color = SavageColor.Primary40,
                     )
             ) {
                 Spacer(modifier = Modifier.fillMaxHeight(0.05f))
                 Row(
-                    modifier = Modifier
-                        .padding(bottom = 20.dp),
+                    modifier = Modifier.padding(bottom = 20.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
@@ -90,9 +97,7 @@ fun FindWorkerScreen() {
                         style = SavageTypography.HeadLine1,
                         color = SavageColor.White,
                     )
-                    IconButton(
-                        onClick = { expanded = !expanded },
-                    ) {
+                    IconButton(onClick = { expanded = !expanded }) {
                         Icon(
                             modifier = Modifier.rotate(rotate),
                             painter = painterResource(id = R.drawable.arrow_drop_down),
@@ -146,9 +151,14 @@ private fun initMapView(context: Context): View {
     )
 
     val mapView = view.findViewById<MapView>(R.id.map_view)
+
     mapView.start(object : KakaoMapReadyCallback() {
         override fun onMapReady(kakaoMap: KakaoMap) {
             setUserLocation(
+                context = context,
+                kakaoMap = kakaoMap,
+            )
+            setMarker(
                 context = context,
                 kakaoMap = kakaoMap,
             )
@@ -156,4 +166,30 @@ private fun initMapView(context: Context): View {
     })
 
     return view
+}
+
+@SuppressLint("MissingPermission")
+private fun setMarker(
+    context: Context,
+    kakaoMap: KakaoMap,
+) {
+    val labelManager = kakaoMap.labelManager
+    val labelStyle = LabelStyle.from(R.drawable.ic_marker)
+    val labelStyles = LabelStyles.from(labelStyle)
+    val styles =
+        labelManager?.addLabelStyles(labelStyles)
+
+    val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+    val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+    val options = LabelOptions.from(
+        LatLng.from(
+            location?.latitude ?: 37.394660,
+            location?.longitude ?: 127.111182,
+        )
+    ).setStyles(styles)
+
+    val layer = labelManager?.layer
+    val label = layer?.addLabel(options)
 }
