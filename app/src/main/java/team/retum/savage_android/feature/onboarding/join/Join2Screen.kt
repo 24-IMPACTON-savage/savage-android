@@ -2,11 +2,13 @@ package team.retum.savage_android.feature.onboarding.join
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -257,6 +259,10 @@ fun Join2Screen(
                         SavageButton(
                             modifier = Modifier.padding(top = 20.dp, bottom = 30.dp),
                             onClick = {
+                                if (latitude == null || longitude == null) {
+                                    Toast.makeText(context, "위치가 뜰 때까지 잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
+                                    return@SavageButton
+                                }
                                 coroutine.launch {
                                     val response = RetrofitClient.userApi.signUp(
                                         SignUpRequest(
@@ -265,6 +271,7 @@ fun Join2Screen(
                                             address = getAddress(context, latitude!!, longitude!!)
                                         )
                                     )
+                                    navController.popBackStack()
                                 }
                             },
                             text = "네, 여기에요",
