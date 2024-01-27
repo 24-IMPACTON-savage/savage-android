@@ -23,6 +23,7 @@ import team.retum.savage_android.feature.postpay.PostPayScreen
 import team.retum.savage_android.feature.posttime.PostTimeScreen
 import team.retum.savage_android.feature.setting.SettingScreen
 import team.retum.savage_android.util.Constant.TAG
+import java.lang.reflect.Modifier
 
 
 @Composable
@@ -47,7 +48,7 @@ fun NavigationGraph(
             Join2Screen(navController = navController, name = name ?: "")
         }
         composable(NavGroup.Main.Map.id) {
-            FindWorkerScreen()
+            FindWorkerScreen(navController = navController)
         }
         composable(NavGroup.Onboarding.Login2.id + "/{name}") {
             val name = it.arguments?.getString("name")
@@ -55,12 +56,6 @@ fun NavigationGraph(
         }
         composable(NavGroup.Onboarding.Login1.id) {
             Login1Screen(navController = navController)
-        }
-        composable(NavGroup.Main.Loading.id) {
-            LoadingScreen()
-        }
-        composable(NavGroup.Main.Complete.id) {
-            CompleteScreen()
         }
         composable(NavGroup.Main.Post.id) {
             PostScreen(navController = navController)
@@ -76,9 +71,6 @@ fun NavigationGraph(
         }
         composable(NavGroup.Main.Setting.id) {
             SettingScreen(navController = navController)
-        }
-        composable(NavGroup.Main.Map.id) {
-            FindWorkerScreen()
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -147,7 +148,9 @@ fun PostScreen(
             .background(color = Color.White)
             .fillMaxSize()
     ) {
-        SavageAppBar(callback = { }, title = "노동자 모집") {
+        SavageAppBar(callback = {
+            navController.navigateUp()
+        }, title = "노동자 모집") {
             SavageTextFieldWithEditBtn(
                 title = "현재 위치",
                 value = location,
@@ -202,8 +205,8 @@ fun PostScreen(
                     coroutine.launch {
                         RetrofitClient.postApi.writePost(
                             WritePostRequest(
-                                latitude = latitude?: 0.0,
-                                longitude = longitude?: 0.0,
+                                latitude = latitude ?: 0.0,
+                                longitude = longitude ?: 0.0,
                                 location = location,
                                 todo = doing,
                                 payment = pay.toInt(),

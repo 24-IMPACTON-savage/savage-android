@@ -14,18 +14,25 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -99,8 +107,16 @@ fun FindWorkerScreen(
     var view by remember {
         mutableStateOf(0)
     }
-    val alpha1: Float by animateFloatAsState(targetValue = if (view == 1) 1f else 0f, label = "", animationSpec = TweenSpec(500))
-    val alpha2: Float by animateFloatAsState(targetValue = if (view == 2) 1f else 0f, label = "", animationSpec = TweenSpec(500))
+    val alpha1: Float by animateFloatAsState(
+        targetValue = if (view == 1) 1f else 0f,
+        label = "",
+        animationSpec = TweenSpec(500)
+    )
+    val alpha2: Float by animateFloatAsState(
+        targetValue = if (view == 2) 1f else 0f,
+        label = "",
+        animationSpec = TweenSpec(500)
+    )
 
     Box {
 
@@ -114,112 +130,156 @@ fun FindWorkerScreen(
                 sheetState = sheetState,
                 sheetContent = { SetAddress() },
             ) {
-                Column(modifier = Modifier.fillMaxSize()) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.TopCenter,
-                    ) {
-                        AndroidView(
-                            factory = {
-                                initMapView(context = it)
-                            },
-                        )
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(
-                                    RoundedCornerShape(
-                                        bottomStart = 16.dp,
-                                        bottomEnd = 16.dp,
-                                    )
-                                )
-                                .background(
-                                    color = SavageColor.Primary40,
-                                )
+                Box {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.TopCenter,
                         ) {
-                            Spacer(modifier = Modifier.fillMaxHeight(0.05f))
-                            Row(
+                            AndroidView(
+                                factory = {
+                                    initMapView(context = it)
+                                },
+                            )
+                            Column(
                                 modifier = Modifier
-                                    .padding(bottom = 20.dp)
-                                    .clickable(onClick = {}),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    modifier = Modifier.padding(start = 16.dp),
-                                    text = fields[currentValue],
-                                    style = SavageTypography.HeadLine1,
-                                    color = SavageColor.White,
-                                )
-                                IconButton(onClick = { expanded = !expanded }) {
-                                    Icon(
-                                        modifier = Modifier.rotate(rotate),
-                                        painter = painterResource(id = R.drawable.arrow_drop_down),
-                                        contentDescription = null,
-                                        tint = SavageColor.White,
+                                    .fillMaxWidth()
+                                    .clip(
+                                        RoundedCornerShape(
+                                            bottomStart = 16.dp,
+                                            bottomEnd = 16.dp,
+                                        )
                                     )
-                                }
-                                DropdownMenu(
-                                    expanded = expanded,
-                                    onDismissRequest = { expanded = false },
+                                    .background(
+                                        color = SavageColor.Primary40,
+                                    )
+                            ) {
+                                Spacer(modifier = Modifier.fillMaxHeight(0.05f))
+                                Row(
+                                    modifier = Modifier
+                                        .padding(bottom = 20.dp)
+                                        .clickable(onClick = {}),
+                                    verticalAlignment = Alignment.CenterVertically,
                                 ) {
-                                    fields.forEachIndexed { index, s ->
-                                        DropdownMenuItem(
-                                            text = {
-                                                Text(
-                                                    text = s,
-                                                    style = SavageTypography.Body3,
-                                                    color = SavageColor.Black,
-                                                )
-                                            },
-                                            onClick = {
-                                                currentValue = index
-                                                expanded = false
-                                            },
+                                    Text(
+                                        modifier = Modifier.padding(start = 16.dp),
+                                        text = fields[currentValue],
+                                        style = SavageTypography.HeadLine1,
+                                        color = SavageColor.White,
+                                    )
+                                    IconButton(onClick = { expanded = !expanded }) {
+                                        Icon(
+                                            modifier = Modifier.rotate(rotate),
+                                            painter = painterResource(id = R.drawable.arrow_drop_down),
+                                            contentDescription = null,
+                                            tint = SavageColor.White,
+                                        )
+                                    }
+                                    DropdownMenu(
+                                        expanded = expanded,
+                                        onDismissRequest = { expanded = false },
+                                    ) {
+                                        fields.forEachIndexed { index, s ->
+                                            DropdownMenuItem(
+                                                text = {
+                                                    Text(
+                                                        text = s,
+                                                        style = SavageTypography.Body3,
+                                                        color = SavageColor.Black,
+                                                    )
+                                                },
+                                                onClick = {
+                                                    currentValue = index
+                                                    expanded = false
+                                                },
+                                            )
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.weight(1f))
+                                    IconButton(
+                                        onClick = {
+                                            coroutineScope.launch {
+                                                sheetState.show()
+                                            }
+                                        },
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.baseline_add_24),
+                                            tint = SavageColor.White,
+                                            contentDescription = null,
                                         )
                                     }
                                 }
-                                Spacer(modifier = Modifier.weight(1f))
-                                IconButton(
-                                    onClick = {
-                                        coroutineScope.launch {
-                                            sheetState.show()
+                            }
+                            SavageButton(
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .padding(
+                                        start = 16.dp,
+                                        end = 16.dp,
+                                        bottom = 16.dp,
+                                    ),
+                                onClick = {
+                                    if (!isLoading) {
+                                        isLoading = true
+                                        coroutine.launch {
+                                            view = 1
+                                            delay(1500)
+                                            view = 2
+                                            delay(1500)
+                                            navController.navigate(NavGroup.Main.MatchingWorker.id)
                                         }
-                                    },
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.baseline_add_24),
-                                        tint = SavageColor.White,
-                                        contentDescription = null,
-                                    )
-                                }
+                                    }
+                                },
+                                text = "노동자 찾기",
+                                isAbleClick = true,
+                            )
+                        }
+                    }
+                    Column {
+                        Spacer(modifier = Modifier.weight(1f))
+                        Row {
+                            Spacer(modifier = Modifier.weight(1f))
+                            Button(
+                                onClick = { navController.navigate(NavGroup.Main.Post.id) },
+                                modifier = Modifier
+                                    .padding(bottom = 100.dp)
+                                    .offset(y = (-25).dp, x = 15.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = SavageColor.Black,
+                                    contentColor = SavageColor.White,
+                                ),
+                            ) {
+                                Text(text = "새로운 지원")
+                            }
+                            Button(
+                                onClick = { navController.navigate(NavGroup.Main.Post.id) },
+                                modifier = Modifier
+                                    .padding(bottom = 100.dp, end = 20.dp)
+                                    .width(50.dp)
+                                    .height(50.dp)
+                                    .clip(RoundedCornerShape(80.dp))
+                                    .background(Color(0xFFF27AF62)), // 버튼의 배경 색상 설정
+                                contentPadding = PaddingValues(0.dp), // 내부 컨텐츠의 패딩을 제거합니다.
+                                colors = ButtonDefaults.buttonColors(
+                                    contentColor = SavageColor.White,
+                                    containerColor = Color(0xFFF27AF62)// 버튼 내부의 텍스트 또는 아이콘의 색상 설정
+                                )
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_clothe),
+                                    contentDescription = null,
+                                    tint = SavageColor.White,
+                                    modifier = Modifier
+                                        .size(24.dp) // 아이콘의 크기 설정
+                                )
                             }
                         }
-                        SavageButton(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(
-                                    start = 16.dp,
-                                    end = 16.dp,
-                                    bottom = 16.dp,
-                                ),
-                            onClick = {
-                                if (!isLoading) {
-                                    isLoading = true
-                                    coroutine.launch {
-                                        view = 1
-                                        delay(1500)
-                                        view = 2
-                                        delay(1500)
-                                        navController.navigate(NavGroup.Main.MatchingWorker.id)
-                                    }
-                                }
-                            },
-                            text = "노동자 찾기",
-                            isAbleClick = true,
-                        )
                     }
                 }
+
             }
+
             1 -> LoadingScreen(modifier = Modifier.alpha(alpha1))
             2 -> CompleteScreen(modifier = Modifier.alpha(alpha2))
         }
