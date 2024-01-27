@@ -9,6 +9,7 @@ import team.retum.savage_android.data.api.AuthApi
 import team.retum.savage_android.data.api.MainApi
 import team.retum.savage_android.data.api.PostApi
 import team.retum.savage_android.data.api.UserApi
+import team.retum.savage_android.data.interceptor.Interceptor
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
@@ -16,6 +17,7 @@ object RetrofitClient {
     private val okHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(60, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
+        .addInterceptor(Interceptor())
         .writeTimeout(60, TimeUnit.SECONDS)
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
