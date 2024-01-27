@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import team.retum.savage_android.R
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -19,7 +20,9 @@ import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 
 @Composable
-internal fun MatchingWorkerScreen() {
+internal fun MatchingWorkerScreen(
+    navController: NavController
+) {
     Column {
         Column(
             modifier = Modifier
@@ -29,7 +32,9 @@ internal fun MatchingWorkerScreen() {
             SavageAppBar(
                 modifier = Modifier.padding(top = 8.dp),
                 color = SavageColor.Transparent,
-                callback = {},
+                callback = {
+                    navController.popBackStack()
+                },
                 content = {},
                 tint = SavageColor.White,
             )
@@ -101,5 +106,7 @@ internal fun MatchingWorkerScreen() {
             isAbleClick = true,
             onClick = {},
         )
+        Spacer(modifier = Modifier.padding(bottom = 24.dp))
+
     }
 }

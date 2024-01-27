@@ -61,6 +61,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     implementation("androidx.compose.material:material:1.5.4")
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
     // kakao
     implementation("com.kakao.maps.open:android:2.6.0")
 

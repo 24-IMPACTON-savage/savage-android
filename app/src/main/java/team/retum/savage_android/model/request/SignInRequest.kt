@@ -2,5 +2,5 @@ package team.retum.savage_android.model.request
 
 data class SignInRequest(
     val name: String,
-    val tel: String,
+    val contact: String,
 )
