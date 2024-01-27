@@ -16,5 +16,6 @@ sealed class NavGroup(val group: String) {
 
         data object PostTime : Main(id = "posttime")
         data object PostPay : Main(id = "postpay")
+        data object MatchingWorker: Main(id = "matchingworker")
     }
 }

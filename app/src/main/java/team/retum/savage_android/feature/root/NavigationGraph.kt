@@ -8,6 +8,7 @@ import team.retum.savage_android.application.SavageApp
 import team.retum.savage_android.feature.complete.CompleteScreen
 import team.retum.savage_android.feature.findworker.FindWorkerScreen
 import team.retum.savage_android.feature.loading.LoadingScreen
+import team.retum.savage_android.feature.matchingworker.MatchingWorkerScreen
 import team.retum.savage_android.feature.onboarding.StartScreen
 import team.retum.savage_android.feature.onboarding.join.Join1Screen
 import team.retum.savage_android.feature.onboarding.join.Join2Screen
@@ -59,6 +60,9 @@ fun NavigationGraph(
         }
         composable(NavGroup.Main.PostPay.id) {
             PostPayScreen(navController = navController)
+        }
+        composable(NavGroup.Main.MatchingWorker.id) {
+            MatchingWorkerScreen()
         }
     }
 }

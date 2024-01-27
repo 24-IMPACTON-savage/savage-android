@@ -28,12 +28,14 @@ import team.retum.savage_android.ui.theme.savageClickable
 fun SavageAppBar(
     callback: () -> Unit,
     modifier: Modifier = Modifier,
+    color: Color = SavageColor.White,
+    tint: Color = SavageColor.Black,
     content: @Composable () -> Unit
 ) {
     Column {
         Row(
             modifier = modifier
-                .background(color = SavageColor.White)
+                .background(color = color)
                 .fillMaxWidth()
                 .height(52.dp)
         ) {
@@ -50,7 +52,8 @@ fun SavageAppBar(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = tint,
                 )
             }
         }
