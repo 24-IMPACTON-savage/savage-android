@@ -1,6 +1,7 @@
 package team.retum.savage_android.feature.onboarding
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import team.retum.savage_android.R
 import team.retum.savage_android.ui.component.SavageButton
+import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
+import team.retum.savage_android.ui.theme.savageClickable
 
 @Composable
 fun StartScreen(
@@ -42,12 +45,26 @@ fun StartScreen(
         )
 
         // join button
+        Text(
+            text = "회원가입 하기",
+            color = SavageColor.Primary40,
+            modifier = Modifier.savageClickable(
+                rippleEnable = false
+            ) {
+                // mv to join screen
+            }
+        )
+        Spacer(modifier = Modifier.padding(bottom = 20.dp))
         // login button
         SavageButton(
+            modifier = Modifier.padding(horizontal = 16.dp),
             onClick = {
 
             },
-            )
+            text = "로그인 하기",
+            isAbleClick = true
+        )
+        Spacer(modifier = Modifier.padding(bottom = 16.dp))
     }
 
 }

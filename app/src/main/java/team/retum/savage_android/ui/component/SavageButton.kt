@@ -3,6 +3,7 @@ package team.retum.savage_android.ui.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -50,12 +51,15 @@ fun SavageButton(
         interactionSource = interactionSource,
         shape = RoundedCornerShape(4.dp),
         colors = colors,
+        contentPadding = PaddingValues(vertical = 18.dp),
         modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(horizontal = 4.dp)
     ) {
-        Text(text = text, style = SavageTypography.Body2)
+        Text(
+            text = text,
+            style = SavageTypography.Body2
+        )
     }
 }
 
