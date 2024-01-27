@@ -12,7 +12,7 @@ interface UserApi {
         @Body signUpRequest: SignUpRequest
     ): Call<Unit>
 
-    @GET("/user/")
+    @GET("/user")
     fun getUser() : Call<Boolean>
 
     @POST("/user/visa")
