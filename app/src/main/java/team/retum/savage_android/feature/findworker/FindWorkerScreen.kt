@@ -419,7 +419,7 @@ fun SetAddress() {
                 onClick = { id -> },
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.fillMaxHeight(0.4f))
         SavageButton(
             modifier = Modifier.padding(bottom = 24.dp),
             onClick = {},
