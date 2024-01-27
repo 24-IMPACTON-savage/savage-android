@@ -65,7 +65,7 @@ fun StartScreen(
         SavageButton(
             modifier = Modifier.padding(horizontal = 16.dp),
             onClick = {
-
+                      navController.navigate(NavGroup.Onboarding.Login1.id)
             },
             text = "로그인 하기",
             isAbleClick = true
