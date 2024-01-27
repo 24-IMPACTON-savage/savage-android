@@ -11,23 +11,23 @@ import team.retum.savage_android.model.request.WritePostRequest
 
 interface PostApi {
     @GET("/post")
-    fun getPosts(): Call<List<Post>>
+    suspend fun getPosts(): List<Post>
 
     @GET("/post/{postId}")
-    fun getPost(postId: Int): Call<Post>
+    suspend fun getPost(postId: Int): Post
 
     @POST("/post/write")
-    fun writePost(
+    suspend fun writePost(
         writePostRequest: WritePostRequest
-    ): Call<Unit>
+    )
 
     @PATCH("/post/{postId}")
-    fun updatePost(
+    suspend fun updatePost(
         pathPostRequest: PathPostRequest
-    ): Call<Unit>
+    )
 
     @DELETE("/post/{postId}")
-    fun deletePost(
+    suspend fun deletePost(
         postId: Int
-    ): Call<Unit>
+    )
 }

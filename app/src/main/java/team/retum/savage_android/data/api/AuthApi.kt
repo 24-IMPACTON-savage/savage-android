@@ -8,7 +8,7 @@ import team.retum.savage_android.model.response.SignInResponse
 
 interface AuthApi {
     @POST("/signIn")
-    fun signIn(
+    suspend fun signIn(
         @Body signInRequest: SignInRequest
-    ): Call<SignInResponse>
+    ): SignInResponse
 }

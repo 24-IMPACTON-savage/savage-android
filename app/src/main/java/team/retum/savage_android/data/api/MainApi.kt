@@ -6,5 +6,5 @@ import team.retum.savage_android.model.Worker
 
 interface MainApi {
     @GET("auth/signin")
-    fun getWorkers(): Call<List<Worker>>
+    suspend fun getWorkers(): List<Worker>
 }

@@ -1,6 +1,7 @@
 package team.retum.savage_android.feature.onboarding.join
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
@@ -38,6 +39,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.launch
 import team.retum.savage_android.data.RetrofitClient
 import team.retum.savage_android.data.api.AuthApi
 import team.retum.savage_android.model.request.SignInRequest
@@ -89,6 +91,7 @@ fun Join2Screen(
     name: String
 ) {
     val context = LocalContext.current
+
 
     var tel by remember { mutableStateOf("") }
     val keyboardShow by rememberKeyboardIsOpen()
@@ -165,6 +168,8 @@ fun Join2Screen(
             Looper.getMainLooper()
         )
     }
+
+    val coroutine = rememberCoroutineScope()
 
 
     LaunchedEffect(isAllowLocationPermission) {
@@ -255,13 +260,15 @@ fun Join2Screen(
                         SavageButton(
                             modifier = Modifier.padding(top = 20.dp, bottom = 30.dp),
                             onClick = {
-                                RetrofitClient.userApi.signUp(
-                                    SignUpRequest(
-                                        name = name,
-                                        number = tel,
-                                        address = getAddress(context, latitude!!, longitude!!)
+                                coroutine.launch {
+                                    RetrofitClient.userApi.signUp(
+                                        SignUpRequest(
+                                            name = name,
+                                            number = tel,
+                                            address = getAddress(context, latitude!!, longitude!!)
+                                        )
                                     )
-                                )
+                                }
                             },
                             text = "네, 여기에요",
                             isAbleClick = true

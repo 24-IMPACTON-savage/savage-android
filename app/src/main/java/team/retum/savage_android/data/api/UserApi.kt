@@ -10,13 +10,13 @@ interface UserApi {
     @POST("/user/signUp")
     fun signUp(
         @Body signUpRequest: SignUpRequest
-    ): Call<Unit>
+    )
 
     @GET("/user")
-    fun getUser() : Call<Boolean>
+    fun getUser(): Boolean
 
     @POST("/user/visa")
     fun authenticationVisa(
         @Body passport: String
-    ) : Call<Boolean>
+    ): Boolean
 }
