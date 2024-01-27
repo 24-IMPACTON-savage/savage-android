@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.nohjason.momori.application.SavageApp
 import team.retum.savage_android.feature.complete.CompleteScreen
 import team.retum.savage_android.feature.findworker.FindWorkerScreen
 import team.retum.savage_android.feature.loading.LoadingScreen
@@ -18,9 +19,12 @@ import team.retum.savage_android.feature.onboarding.login.Login2Screen
 fun NavigationGraph(
     navController: NavHostController,
 ) {
+
+    val enableAutoLogin = SavageApp.prefs.accessToken.isNotBlank()
+
     NavHost(
         navController = navController,
-        startDestination = NavGroup.Onboarding.Start.id,
+        startDestination = getStartDestination(enableAutoLogin = enableAutoLogin),
     ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
@@ -51,6 +55,5 @@ fun NavigationGraph(
     }
 }
 
-private val Start = NavGroup.Onboarding.Start
-
-fun getStartDestination() =/*if (enableAutoLogin) NavGroup.Main.MAIN.id else */Start.id
+fun getStartDestination(enableAutoLogin: Boolean) =
+    if (enableAutoLogin) NavGroup.Main.Map.id else NavGroup.Onboarding.Start.id
