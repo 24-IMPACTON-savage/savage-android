@@ -12,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
 import team.retum.savage_android.data.RetrofitClient
 import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.model.request.SignInRequest
@@ -48,7 +50,7 @@ fun Login2Screen(
 
     var tel by remember { mutableStateOf("") }
     val keyboardShow by rememberKeyboardIsOpen()
-
+    val coroutine = rememberCoroutineScope()
     SavageAppBar(
         callback = {
             navController.popBackStack()
@@ -61,14 +63,20 @@ fun Login2Screen(
         ) {
             Title()
             Spacer(modifier = Modifier.padding(top = 48.dp))
-            SavageTextField(modifier = Modifier.padding(horizontal = 20.dp), value = tel, hint = "전화번호를 입력해 주세요.", onValueChange = { tel = it })
+            SavageTextField(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                value = tel,
+                hint = "전화번호를 입력해 주세요.",
+                onValueChange = { tel = it })
             Spacer(modifier = Modifier.weight(1f))
             SavageButton(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
                 onClick = {
                     if (tel.isNotBlank()) {
                         Log.d("로그", "Login2Screen: $name, $tel")
-                        RetrofitClient.authApi.signIn(SignInRequest(name, tel))
+                        coroutine.launch {
+                            RetrofitClient.authApi.signIn(SignInRequest(name, tel))
+                        }
                     } else {
                         // handling
                     }
