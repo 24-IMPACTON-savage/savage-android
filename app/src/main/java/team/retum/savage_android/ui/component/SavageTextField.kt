@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
@@ -31,7 +34,10 @@ fun SavageTextField(
     hint: String,
     showTitle: Boolean = false,
     isError: Boolean = false,
+    enable: Boolean = true,
     onValueChange: (String) -> Unit,
+    isHaveBottomLine: Boolean = true,
+    keyboardActions: KeyboardActions = KeyboardActions(),
 ) {
     var focused by remember { mutableStateOf(false) }
     val alpha by animateFloatAsState(
@@ -73,12 +79,14 @@ fun SavageTextField(
                     .onFocusChanged {
                         focused = it.isFocused
                     },
+                maxLines = 3,
                 value = value,
                 onValueChange = onValueChange,
                 textStyle = SavageTypography.Body3,
                 singleLine = true,
+                enabled = enable,
                 decorationBox = { it() },
-
+                keyboardActions = keyboardActions
             )
             Text(
                 modifier = Modifier
@@ -89,9 +97,23 @@ fun SavageTextField(
                     ), text = hint, color = SavageColor.Gray40, style = SavageTypography.Body3
             )
         }
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = color,
-        )
+        if (isHaveBottomLine)
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = color,
+            )
     }
+}
+
+@Preview
+@Composable
+fun SavageTextFieldPreview() {
+    SavageTextField(
+        value = "",
+        hint = "힌트",
+        onValueChange = {
+
+        },
+        isHaveBottomLine = false,
+    )
 }

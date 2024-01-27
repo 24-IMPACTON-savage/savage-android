@@ -7,16 +7,14 @@ import com.kakao.vectormap.camera.CameraAnimation
 import com.kakao.vectormap.camera.CameraPosition
 import com.kakao.vectormap.camera.CameraUpdateFactory
 
-private fun getCurrentLocation(context: Context): Pair<Double, Double> {
-
+fun getCurrentLocation(context: Context): Pair<Double, Double> {
     val permissionManager = PermissionManager()
 
     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+    val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         ?: throw NullPointerException()
 
-    // TODO RuntimeException -> RevokePermissionException() 으로 변경
     return if (permissionManager.checkPermission(context)) {
         location.latitude to location.longitude
     } else throw RuntimeException()
