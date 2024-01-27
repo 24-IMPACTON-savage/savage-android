@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,7 +33,7 @@ fun SavageTextFieldWithEditBtn(
     title: String = "전화번",
     titleTextStyle: TextStyle = SavageTypography.Body2,
     titleTextColor: Color = Color(0xFF676F7E),
-    hint: String,
+    hint: String = "힌트",
     subTitle: String = "",
     onValueChange: (String) -> Unit,
     isShowTitle: Boolean = true,
@@ -43,11 +44,11 @@ fun SavageTextFieldWithEditBtn(
     val focusManager = LocalFocusManager.current
     Column(modifier = modifier.savageClickable {
         if (isTextField) {
-            focusManager.moveFocus(FocusDirection.Next)
+
         } else {
             onclick()
         }
-    }) {
+    }.padding(start = 10.dp, bottom = 5.dp, top = 5.dp)) {
         Box {
             if (isShowTitle) {
                 Text(text = title, style = titleTextStyle, color = titleTextColor)
@@ -55,7 +56,7 @@ fun SavageTextFieldWithEditBtn(
         }
         Box(modifier = Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(end = 6.dp)) {
+                modifier = Modifier.padding(end = 10.dp)) {
                 SavageTextField(
                     modifier = Modifier.weight(0.7f),
                     value = value,
@@ -97,6 +98,11 @@ fun SavageTextFieldWithEditBtn(
                 Text(text = subTitle, style = SavageTypography.Body2, color = Color(0xFF9DA3AF))
             }
         }
+        Divider(
+            modifier = Modifier.fillMaxWidth()
+                .padding(top = 10.dp),
+            color = Color(0xFFF1F2F4),
+        )
     }
 }
 

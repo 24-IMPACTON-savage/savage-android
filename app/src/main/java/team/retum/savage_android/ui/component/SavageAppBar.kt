@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.retum.savage_android.ui.theme.SavageColor
+import team.retum.savage_android.ui.theme.SavageTypography
 import team.retum.savage_android.ui.theme.SavageandroidTheme
 import team.retum.savage_android.ui.theme.savageClickable
 
@@ -28,32 +31,49 @@ import team.retum.savage_android.ui.theme.savageClickable
 fun SavageAppBar(
     callback: () -> Unit,
     modifier: Modifier = Modifier,
+    title: String? = null,
     content: @Composable () -> Unit
 ) {
     Column {
-        Row(
-            modifier = modifier
-                .background(color = SavageColor.White)
-                .fillMaxWidth()
-                .height(52.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(horizontal = 16.dp)
-                    .savageClickable(
-                        rippleEnable = false
-                    ) {
-                        callback()
-                    },
-                contentAlignment = Alignment.Center
+        Box {
+            Row(
+                modifier = modifier
+                    .background(color = SavageColor.White)
+                    .fillMaxWidth()
+                    .height(52.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = null
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(horizontal = 16.dp)
+                        .savageClickable(
+                            rippleEnable = false
+                        ) {
+                            callback()
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowBack,
+                        contentDescription = null
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .align(Alignment.CenterStart)
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                title?.let {
+                    Text(
+                        text = it,
+                        style = SavageTypography.Body2
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
             }
         }
+
         content()
     }
 }
@@ -67,7 +87,7 @@ fun AppBarPreview() {
     ) {
         SavageAppBar(callback = {
 
-        }) {
+        }, title = "nice") {
             Text(text = "Hello")
         }
     }

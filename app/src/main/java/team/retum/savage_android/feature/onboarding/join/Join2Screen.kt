@@ -57,7 +57,7 @@ import java.io.IOException
 import java.util.Locale
 
 
-private val locationPermissions = arrayOf(
+val locationPermissions = arrayOf(
     Manifest.permission.ACCESS_COARSE_LOCATION,
     Manifest.permission.ACCESS_FINE_LOCATION
 )

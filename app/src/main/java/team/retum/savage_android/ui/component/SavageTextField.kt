@@ -3,7 +3,6 @@ package team.retum.savage_android.ui.component
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,8 +13,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TextFieldDefaults.indicatorLine
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SavageTextField(
     modifier: Modifier = Modifier,
@@ -83,6 +79,7 @@ fun SavageTextField(
                     .onFocusChanged {
                         focused = it.isFocused
                     },
+                maxLines = 3,
                 value = value,
                 onValueChange = onValueChange,
                 textStyle = SavageTypography.Body3,
