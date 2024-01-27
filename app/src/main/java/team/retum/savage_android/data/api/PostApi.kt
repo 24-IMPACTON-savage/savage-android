@@ -6,24 +6,25 @@ import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import team.retum.savage_android.model.Post
+import team.retum.savage_android.model.base.BaseResponse
 import team.retum.savage_android.model.request.PathPostRequest
 import team.retum.savage_android.model.request.WritePostRequest
 
 interface PostApi {
     @GET("/post")
-    suspend fun getPosts(): List<Post>
+    suspend fun getPosts(): BaseResponse<List<Post>>
 
     @GET("/post/{postId}")
-    suspend fun getPost(postId: Int): Post
+    suspend fun getPost(postId: Int): BaseResponse<Post>
 
     @POST("/post/write")
     suspend fun writePost(
-        writePostRequest: WritePostRequest
+        writePostRequest: BaseResponse<WritePostRequest>
     )
 
     @PATCH("/post/{postId}")
     suspend fun updatePost(
-        pathPostRequest: PathPostRequest
+        pathPostRequest: BaseResponse<PathPostRequest>
     )
 
     @DELETE("/post/{postId}")

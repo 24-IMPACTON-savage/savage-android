@@ -28,8 +28,8 @@ fun NavigationGraph(
 
     NavHost(
         navController = navController,
-        startDestination = NavGroup.Main.Setting.id/*getStartDestination(enableAutoLogin = enableAutoLogin)*/,
-    ) {
+       startDestination = getStartDestination(enableAutoLogin = enableAutoLogin),
+        ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
         }

@@ -1,8 +1,12 @@
 package team.retum.savage_android.model
 
 data class Worker(
-    val postId: Int,
-    val name: String,
+    val workerId: Int,
     val contact: String,
+    val name: String,
+    val hashed: String,
     val expr: String,
+    val country: String,
+    val introduce: String,
+    val passport: String,
 )
