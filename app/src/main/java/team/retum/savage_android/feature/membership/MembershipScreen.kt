@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import team.retum.savage_android.R
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -19,7 +20,7 @@ import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 
 @Composable
-internal fun MembershipScreen() {
+internal fun MembershipScreen(navController: NavController) {
     Box {
         Image(
             modifier = Modifier.fillMaxSize(),
@@ -31,7 +32,9 @@ internal fun MembershipScreen() {
             modifier = Modifier.fillMaxSize(),
         ) {
             SavageAppBar(
-                callback = { /*TODO*/ },
+                callback = {
+                           navController.popBackStack()
+                           },
                 color = SavageColor.Transparent,
                 tint = SavageColor.White,
             ) {

@@ -244,7 +244,7 @@ fun FindWorkerScreen(
                                 onClick = { navController.navigate(NavGroup.Main.Post.id) },
                                 modifier = Modifier
                                     .padding(bottom = 100.dp)
-                                    .offset(y = (-25).dp, x = 15.dp),
+                                    .offset(y = (-60).dp, x = 50.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = SavageColor.Black,
                                     contentColor = SavageColor.White,
