@@ -34,9 +34,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import androidx.navigation.NavController
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
+import team.retum.savage_android.ui.component.SavageTextField
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 import team.retum.savage_android.ui.theme.savageClickable
@@ -45,6 +47,10 @@ import team.retum.savage_android.ui.theme.savageClickable
 fun PostPayScreen(
     navController: NavController
 ) {
+
+    var pay by remember {
+        mutableStateOf(0)
+    }
 
     SavageAppBar(
         callback = {
@@ -90,6 +96,14 @@ fun PostPayScreen(
                     }
                 }
             }
+            SavageTextField(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                value = pay.toString(), hint = "월급으로 얼마를 주실 건가요?", onValueChange = {
+                    if (it.isDigitsOnly()) {
+                        pay = it.toInt() }
+                        
+                    }
+            )
 
             Spacer(modifier = Modifier.weight(1f))
             SavageButton(
