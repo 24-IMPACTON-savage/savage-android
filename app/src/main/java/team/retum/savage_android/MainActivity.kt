@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.softpie.karabiner.ui.root.NavigationGraph
 import team.retum.savage_android.ui.component.SavageButton
@@ -17,7 +18,6 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val navController = rememberNavController()
-
             SavageandroidTheme {
                 NavigationGraph(navController = navController)
             }
