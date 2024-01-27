@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import team.retum.savage_android.R
+import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.theme.SavageTypography
 
 @Composable
@@ -42,6 +43,11 @@ fun StartScreen(
 
         // join button
         // login button
+        SavageButton(
+            onClick = {
+
+            },
+            )
     }
 
 }

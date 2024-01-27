@@ -18,10 +18,7 @@ import team.retum.savage_android.ui.theme.SavageTypography
 
 @Composable
 fun SavageButton(
-    modifier: Modifier = Modifier
-        .fillMaxWidth()
-        .background(Color.Transparent)
-        .padding(horizontal = 4.dp),
+    modifier: Modifier = Modifier,
     text: String = "default",
     onClick: () -> Unit,
     isAbleClick: Boolean = false,
@@ -54,6 +51,9 @@ fun SavageButton(
         shape = RoundedCornerShape(4.dp),
         colors = colors,
         modifier = modifier
+            .fillMaxWidth()
+            .background(Color.Transparent)
+            .padding(horizontal = 4.dp)
     ) {
         Text(text = text, style = SavageTypography.Body2)
     }
