@@ -1,16 +1,12 @@
 package team.retum.savage_android.feature.root
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import team.retum.savage_android.application.SavageApp
-import team.retum.savage_android.feature.complete.CompleteScreen
 import team.retum.savage_android.feature.findworker.FindWorkerScreen
-import team.retum.savage_android.feature.loading.LoadingScreen
 import team.retum.savage_android.feature.matchingworker.MatchingWorkerScreen
-import team.retum.savage_android.feature.membership.MembershipScreen
 import team.retum.savage_android.feature.onboarding.StartScreen
 import team.retum.savage_android.feature.onboarding.join.Join1Screen
 import team.retum.savage_android.feature.onboarding.join.Join2Screen
@@ -20,8 +16,6 @@ import team.retum.savage_android.feature.post.PostScreen
 import team.retum.savage_android.feature.postpay.PostPayScreen
 import team.retum.savage_android.feature.posttime.PostTimeScreen
 import team.retum.savage_android.feature.setting.SettingScreen
-import team.retum.savage_android.util.Constant.TAG
-import java.lang.reflect.Modifier
 
 
 @Composable

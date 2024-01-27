@@ -1,6 +1,7 @@
 package team.retum.savage_android.data.api
 
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -19,7 +20,7 @@ interface PostApi {
 
     @POST("/post/write")
     suspend fun writePost(
-        writePostRequest: WritePostRequest
+        @Body writePostRequest: WritePostRequest
     ): BaseResponse<Unit>
 
     @PATCH("/post/{postId}")

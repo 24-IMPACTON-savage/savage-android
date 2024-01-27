@@ -101,7 +101,6 @@ fun PostPayScreen(
                 value = pay.toString(), hint = "월급으로 얼마를 주실 건가요?", onValueChange = {
                     if (it.isDigitsOnly()) {
                         pay = it.toInt() }
-                        
                     }
             )
 
@@ -109,7 +108,13 @@ fun PostPayScreen(
             SavageButton(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 onClick = {
-                    // handling
+                    val total = "$pay/$selectedOption"
+
+                    // 현재 화면의 NavController를 이용하여 이전 화면의 NavBackStackEntry를 가져옴
+                    val previousBackStackEntry = navController.previousBackStackEntry
+                    previousBackStackEntry?.arguments?.putString("total", total)
+
+                    // 현재 화면을 popBackStack
                     navController.popBackStack()
                 },
                 text = "완료",

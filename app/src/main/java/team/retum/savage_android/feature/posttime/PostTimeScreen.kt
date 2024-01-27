@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -238,8 +239,15 @@ fun PostTimeScreen(navController: NavController) {
             SavageButton(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 onClick = {
-                    // handling
-                          navController.popBackStack()
+                    // 값을 PostScreen으로 전달
+                    val selectedTime = "${startHour}:${startMinutes} ~ ${endHour}:${endMinutes}"
+
+                    // 현재 화면의 NavController를 이용하여 이전 화면의 NavBackStackEntry를 가져옴
+                    val previousBackStackEntry = navController.previousBackStackEntry
+                    previousBackStackEntry?.arguments?.putString("selectedTime", selectedTime)
+
+                    // 현재 화면을 popBackStack
+                    navController.popBackStack()
                 },
                 text = "완료",
                 isAbleClick = true,

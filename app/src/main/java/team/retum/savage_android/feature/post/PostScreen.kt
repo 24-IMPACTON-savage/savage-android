@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -27,6 +28,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -37,6 +40,7 @@ import team.retum.savage_android.data.RetrofitClient
 import team.retum.savage_android.feature.onboarding.join.getAddress
 import team.retum.savage_android.feature.onboarding.join.locationPermissions
 import team.retum.savage_android.feature.root.NavGroup
+import team.retum.savage_android.model.request.RequestLocation
 import team.retum.savage_android.model.request.WritePostRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -45,10 +49,15 @@ import team.retum.savage_android.ui.theme.savageClickable
 import team.retum.savage_android.util.Constant
 import team.retum.savage_android.util.PermissionUtil
 
+class PostViewModel : ViewModel() {
+    var doing by mutableStateOf("")
+}
+
 @Composable
 fun PostScreen(
     navController: NavController
 ) {
+    val postViewModel: PostViewModel = viewModel()
     val context = LocalContext.current
     var latitude by remember {
         mutableStateOf<Double?>(null)
@@ -65,7 +74,7 @@ fun PostScreen(
             "잠시만 기다려주세요"
         )
     }
-    var doing by remember { mutableStateOf("") }
+    var doing by remember { mutableStateOf(postViewModel.doing) }
     var startTime by remember { mutableStateOf("0:00") }
     var endTime by remember { mutableStateOf("0:00") }
     var pay by remember { mutableStateOf("0") }
@@ -137,6 +146,25 @@ fun PostScreen(
         )
     }
 
+    val currentBackStackEntry = navController.currentBackStackEntry
+
+    // 이전 화면에서 전달한 값을 arguments를 통해 읽어옴
+    val selectedTime = currentBackStackEntry?.arguments?.getString("selectedTime")
+    val selectedPay = currentBackStackEntry?.arguments?.getString("total")
+
+    if (selectedPay != null) {
+        // UI에 표시하는 예시
+        pay = selectedPay.split("/")[0]
+        payType = selectedPay.split("/")[1]
+    }
+
+    if (selectedTime != null) {
+        // UI에 표시하는 예시
+        startTime = selectedTime.split("~")[0]
+        endTime = selectedTime.split("~")[1]
+    }
+
+
     LaunchedEffect(isAllowLocationPermission) {
         if (isAllowLocationPermission) {
             locationUpdate()
@@ -172,7 +200,10 @@ fun PostScreen(
                 title = "하는 일",
                 value = doing,
                 hint = "필요한 일을 입력해주세요",
-                onValueChange = { doing = it })
+                onValueChange = {
+                    postViewModel.doing = it
+                    doing = it
+                })
             SavageTextFieldWithEditBtn(
                 title = "시간",
                 value = "$startTime ~ $endTime",
@@ -205,9 +236,11 @@ fun PostScreen(
                     coroutine.launch {
                         RetrofitClient.postApi.writePost(
                             WritePostRequest(
-                                latitude = latitude ?: 0.0,
-                                longitude = longitude ?: 0.0,
-                                location = location,
+                                location = listOf(RequestLocation(
+                                    location = location,
+                                    latitude = latitude ?: 0.0,
+                                    longitude = longitude ?: 0.0,
+                                )),
                                 todo = doing,
                                 payment = pay.toInt(),
                                 unit = payType,
@@ -215,6 +248,8 @@ fun PostScreen(
                             )
                         )
                     }
+                    Toast.makeText(context, "모집이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
                 },
                 modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, bottom = 8.dp)
