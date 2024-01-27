@@ -1,6 +1,5 @@
 package team.retum.savage_android.feature.onboarding
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,34 +25,34 @@ import team.retum.savage_android.ui.theme.SavageTypography
 import team.retum.savage_android.ui.theme.rememberKeyboardIsOpen
 
 @Composable
-private fun Title() {
+private fun Title(name: String) {
     Row(
         modifier = Modifier
             .padding(start = 16.dp, top = 16.dp)
     ) {
         Text(
-            text = "안녕하세요! ",
+            text = name + "님! ",
             style = SavageTypography.HeadLine1
         )
         Text(
-            text = "성함",
+            text = "전화번호",
             style = SavageTypography.HeadLine1,
             color = SavageColor.Primary40
         )
         Text(
-            text = "을 알려주세요!",
+            text = "를 알려주세요!",
             style = SavageTypography.HeadLine1
         )
     }
 }
 
-@SuppressLint("SuspiciousIndentation")
 @Composable
-fun Join1Screen(
-    navController: NavController
+fun Join2Screen(
+    navController: NavController,
+    name: String
 ) {
 
-    var name by remember { mutableStateOf("") }
+    var tel by remember { mutableStateOf("") }
     val keyboardShow by rememberKeyboardIsOpen()
 
     SavageAppBar(
@@ -66,25 +65,25 @@ fun Join1Screen(
                 .fillMaxSize()
                 .background(Color.White)
         ) {
-            Title()
+            Title(name = name)
             Spacer(modifier = Modifier.padding(top = 48.dp))
-            SavageTextField(value = name, hint = "성함을 입력해 주세요.", onValueChange = { name = it })
+            SavageTextField(value = tel, hint = "성함을 입력해 주세요.", onValueChange = { tel = it })
             Spacer(modifier = Modifier.weight(1f))
             SavageButton(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
                 onClick = {
-                    if (name.isNotBlank()) {
-                        navController.navigate(NavGroup.Onboarding.Join2.id + "/${name}")
+                    if (tel.isNotBlank()) {
+                        navController.navigate(NavGroup.Onboarding.Join1.id + "/${tel}")
                     } else {
                         // handling
                     }
                 },
                 text = "다음",
-                isAbleClick = name.isNotBlank(),
+                isAbleClick = tel.isNotBlank(),
                 isKeyShow = keyboardShow
             )
             if (!keyboardShow)
-            Spacer(modifier = Modifier.padding(bottom = 24.dp))
+                Spacer(modifier = Modifier.padding(bottom = 24.dp))
         }
 
     }
