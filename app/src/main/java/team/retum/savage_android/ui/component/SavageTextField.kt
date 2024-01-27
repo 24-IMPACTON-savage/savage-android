@@ -26,6 +26,7 @@ import team.retum.savage_android.ui.theme.SavageTypography
 
 @Composable
 fun SavageTextField(
+    modifier: Modifier = Modifier,
     value: String,
     hint: String,
     showTitle: Boolean = false,
@@ -54,7 +55,9 @@ fun SavageTextField(
         else 0.dp,
         label = "",
     )
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -83,6 +86,7 @@ fun SavageTextField(
                     ),
                 text = hint,
                 color = color,
+                style = SavageTypography.Body3
             )
         }
         Divider(
