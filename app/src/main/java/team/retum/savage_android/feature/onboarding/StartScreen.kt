@@ -1,9 +1,11 @@
 package team.retum.savage_android.feature.onboarding
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -12,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import team.retum.savage_android.R
+import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
@@ -26,7 +30,7 @@ fun StartScreen(
     navController: NavController
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxSize().background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -46,12 +50,14 @@ fun StartScreen(
 
         // join button
         Text(
+            style = SavageTypography.Body2,
             text = "회원가입 하기",
             color = SavageColor.Primary40,
             modifier = Modifier.savageClickable(
-                rippleEnable = false
+                rippleEnable = false,
             ) {
                 // mv to join screen
+                navController.navigate(NavGroup.Onboarding.Join1.id)
             }
         )
         Spacer(modifier = Modifier.padding(bottom = 20.dp))
@@ -64,7 +70,7 @@ fun StartScreen(
             text = "로그인 하기",
             isAbleClick = true
         )
-        Spacer(modifier = Modifier.padding(bottom = 16.dp))
+        Spacer(modifier = Modifier.padding(bottom = 24.dp))
     }
 
 }

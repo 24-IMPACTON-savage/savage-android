@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageandroidTheme
+import team.retum.savage_android.ui.theme.savageClickable
 
 @Composable
 fun SavageAppBar(
@@ -40,7 +41,9 @@ fun SavageAppBar(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(horizontal = 16.dp)
-                    .clickable {
+                    .savageClickable(
+                        rippleEnable = false
+                    ) {
                         callback()
                     },
                 contentAlignment = Alignment.Center
