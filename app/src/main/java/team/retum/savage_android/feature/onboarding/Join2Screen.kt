@@ -1,10 +1,14 @@
 package team.retum.savage_android.feature.onboarding
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
-import com.google.android.gms.location.LocationRequest
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -13,7 +17,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -26,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -33,9 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.launch
 import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -43,8 +47,11 @@ import team.retum.savage_android.ui.component.SavageTextField
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 import team.retum.savage_android.ui.theme.rememberKeyboardIsOpen
+import team.retum.savage_android.ui.theme.savageClickable
 import team.retum.savage_android.util.Constant.TAG
 import team.retum.savage_android.util.PermissionUtil.requestPermissions
+import java.io.IOException
+import java.util.Locale
 
 
 private val locationPermissions = arrayOf(
@@ -210,24 +217,59 @@ fun Join2Screen(
 //                    }) {
 //                        Text("Hide bottom sheet")
 //                    }
-                    if (latitude == null) {
-                        Text(text = "잠시만 기다려주세요")
-                    } else {
-                        Text(text = latitude.toString())
-                        Text(text = longitude.toString())
-                    }
-                    Column {
-//                        Text(text = )
-                        Text(
-                            text = "현재 계신 곳이 이 주소가 맞나요?",
-                            style = SavageTypography.HeadLine1
-                        )
+
+                        Column(
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .padding(top = 24.dp),
+                                text = if (latitude == null || longitude == null) "잠시만 기다려주세요" else getAddress(context, latitude!!, longitude!!),
+                                style = SavageTypography.Body3,
+                                color = SavageColor.Gray30
+                            )
+                            Text(
+                                text = "현재 계신 곳이 이 주소가 맞나요?",
+                                style = SavageTypography.HeadLine1,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                            Text(
+                                text = "아니요, 여기가 아니에요",
+                                style = SavageTypography.Body2,
+                                color = SavageColor.Primary40,
+                                modifier = Modifier
+                                    .padding(top = 48.dp)
+                                    .savageClickable(rippleEnable = false) {
+
+                                    }
+                                    .align(Alignment.CenterHorizontally)
+                            )
+                            SavageButton(
+                                modifier = Modifier.padding(top = 20.dp, bottom = 24.dp),
+                                onClick = {
+
+                                },
+                                text = "네, 여기에요",
+                                isAbleClick = true
+                            )
                     }
                 }
             }
-
         }
-
     }
+}
 
+fun getAddress(mContext: Context?, lat: Double, lng: Double): String {
+    var nowAddr = "대한민국 경기도 성남시 분당구 판교로 242"
+    val geocoder = Geocoder(mContext!!, Locale.KOREA)
+    val address: List<Address>?
+    try {
+        address = geocoder.getFromLocation(lat, lng, 1)
+        if (!address.isNullOrEmpty()) {
+            nowAddr = address[0].getAddressLine(0).toString()
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return nowAddr
 }
