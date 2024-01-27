@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import team.retum.savage_android.application.SavageApp
 import kotlinx.coroutines.launch
 import team.retum.savage_android.data.RetrofitClient
-import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.model.request.SignInRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -75,7 +75,8 @@ fun Login2Screen(
                     if (tel.isNotBlank()) {
                         Log.d("로그", "Login2Screen: $name, $tel")
                         coroutine.launch {
-                            RetrofitClient.authApi.signIn(SignInRequest(name, tel))
+                            val response = RetrofitClient.authApi.signIn(SignInRequest(name, tel))
+                            SavageApp.prefs.accessToken = response.accessToken
                         }
                     } else {
                         // handling
@@ -88,6 +89,5 @@ fun Login2Screen(
             if (!keyboardShow)
                 Spacer(modifier = Modifier.padding(bottom = 24.dp))
         }
-
     }
 }
