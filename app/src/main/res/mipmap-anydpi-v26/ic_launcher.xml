@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-<<<<<<< Updated upstream:app/src/main/res/mipmap-anydpi/ic_launcher.xml
-    <background android:drawable="@drawable/frame_632" />
-    <foreground android:drawable="@drawable/frame_632" />
-    <monochrome android:drawable="@drawable/frame_632" />
-=======
     <background android:drawable="@drawable/ic_launcher_background"/>
     <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
->>>>>>> Stashed changes:app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
 </adaptive-icon>

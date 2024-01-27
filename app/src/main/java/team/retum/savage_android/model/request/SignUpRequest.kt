@@ -1,7 +1,0 @@
-package team.retum.savage_android.model.request
-
-data class SignUpRequest(
-    val contact: String,
-    val name: String,
-    val address: String,
-)

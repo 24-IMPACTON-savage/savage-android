@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "team.retum.savage_android"
+    namespace = "team.retum.savage_android_r"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "team.retum.savage_android"
+        applicationId = "team.retum.savage_android_r"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
