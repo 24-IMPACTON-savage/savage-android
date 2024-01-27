@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import team.retum.savage_android.application.SavageApp
 import kotlinx.coroutines.launch
 import team.retum.savage_android.data.RetrofitClient
+import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.model.request.SignInRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -76,7 +77,8 @@ fun Login2Screen(
                         Log.d("로그", "Login2Screen: $name, $tel")
                         coroutine.launch {
                             val response = RetrofitClient.authApi.signIn(SignInRequest(name, tel))
-                            SavageApp.prefs.accessToken = response.data?.accessToken?: ""
+                            SavageApp.prefs.accessToken = response.data?.accesstoken?: ""
+                            navController.navigate(NavGroup.Main.Map.id)
                         }
                     } else {
                         // handling

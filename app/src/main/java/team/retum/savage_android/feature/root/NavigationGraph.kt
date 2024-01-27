@@ -1,6 +1,10 @@
 package team.retum.savage_android.feature.root
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,6 +21,7 @@ import team.retum.savage_android.feature.onboarding.login.Login2Screen
 import team.retum.savage_android.feature.postpay.PostPayScreen
 import team.retum.savage_android.feature.posttime.PostTimeScreen
 import team.retum.savage_android.feature.setting.SettingScreen
+import team.retum.savage_android.util.Constant.TAG
 
 
 @Composable
@@ -28,7 +33,7 @@ fun NavigationGraph(
 
     NavHost(
         navController = navController,
-       startDestination = getStartDestination(enableAutoLogin = enableAutoLogin),
+        startDestination = getStartDestination(enableAutoLogin = enableAutoLogin),
         ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
