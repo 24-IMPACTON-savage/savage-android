@@ -16,6 +16,7 @@ import team.retum.savage_android.feature.onboarding.login.Login1Screen
 import team.retum.savage_android.feature.onboarding.login.Login2Screen
 import team.retum.savage_android.feature.postpay.PostPayScreen
 import team.retum.savage_android.feature.posttime.PostTimeScreen
+import team.retum.savage_android.feature.setting.SettingScreen
 
 
 @Composable
@@ -27,8 +28,8 @@ fun NavigationGraph(
 
     NavHost(
         navController = navController,
-        startDestination = NavGroup.Main.PostPay.id/*getStartDestination(enableAutoLogin = enableAutoLogin)*/,
-    ) {
+       startDestination = getStartDestination(enableAutoLogin = enableAutoLogin),
+        ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
         }
@@ -63,6 +64,9 @@ fun NavigationGraph(
         }
         composable(NavGroup.Main.MatchingWorker.id) {
             MatchingWorkerScreen()
+        }
+        composable(NavGroup.Main.Setting.id) {
+            SettingScreen(navController = navController)
         }
     }
 }

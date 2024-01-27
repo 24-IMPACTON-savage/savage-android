@@ -1,7 +1,6 @@
 package team.retum.savage_android.feature.onboarding.join
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
@@ -41,8 +40,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 import team.retum.savage_android.data.RetrofitClient
-import team.retum.savage_android.data.api.AuthApi
-import team.retum.savage_android.model.request.SignInRequest
 import team.retum.savage_android.model.request.SignUpRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -190,7 +187,7 @@ fun Join2Screen(
         ) {
             Title(name = name)
             Spacer(modifier = Modifier.padding(top = 48.dp))
-            SavageTextField(modifier = Modifier.padding(horizontal = 20.dp), value = tel, hint = "성함을 입력해 주세요.", onValueChange = { tel = it })
+            SavageTextField(modifier = Modifier.padding(horizontal = 20.dp), value = tel, hint = "전화번호를 입력해 주세요.", onValueChange = { tel = it })
             Spacer(modifier = Modifier.weight(1f))
             SavageButton(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
@@ -264,7 +261,7 @@ fun Join2Screen(
                                     RetrofitClient.userApi.signUp(
                                         SignUpRequest(
                                             name = name,
-                                            number = tel,
+                                            contact = tel,
                                             address = getAddress(context, latitude!!, longitude!!)
                                         )
                                     )

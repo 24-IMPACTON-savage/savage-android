@@ -43,9 +43,7 @@ fun SavageTextFieldWithEditBtn(
 ) {
     val focusManager = LocalFocusManager.current
     Column(modifier = modifier.savageClickable {
-        if (isTextField) {
-
-        } else {
+        if (!isTextField) {
             onclick()
         }
     }.padding(start = 10.dp, bottom = 5.dp, top = 5.dp)) {
