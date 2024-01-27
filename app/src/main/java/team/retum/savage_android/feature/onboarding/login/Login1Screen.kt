@@ -42,5 +42,40 @@ private fun Title() {
 fun Login1Screen(
     navController: NavController
 ) {
-    PostScreen()
+
+    var name by remember { mutableStateOf("") }
+    val keyboardShow by rememberKeyboardIsOpen()
+
+    SavageAppBar(
+        callback = {
+            navController.popBackStack()
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+        ) {
+            Title()
+            Spacer(modifier = Modifier.padding(top = 48.dp))
+            SavageTextField(modifier = Modifier.padding(horizontal = 20.dp), value = name, hint = "성함을 입력해 주세요.", onValueChange = { name = it })
+            Spacer(modifier = Modifier.weight(1f))
+            SavageButton(
+                modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
+                onClick = {
+                    if (name.isNotBlank()) {
+                        navController.navigate(NavGroup.Onboarding.Login2.id + "/${name}")
+                    } else {
+                        // handling
+                    }
+                },
+                text = "다음",
+                isAbleClick = name.isNotBlank(),
+                isKeyShow = keyboardShow
+            )
+            if (!keyboardShow)
+                Spacer(modifier = Modifier.padding(bottom = 24.dp))
+        }
+
+    }
 }
