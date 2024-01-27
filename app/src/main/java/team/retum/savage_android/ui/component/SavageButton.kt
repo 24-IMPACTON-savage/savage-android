@@ -26,6 +26,7 @@ fun SavageButton(
     modifier: Modifier = Modifier,
     text: String = "default",
     onClick: () -> Unit,
+    isKeyShow: Boolean = false,
     isAbleClick: Boolean = false,
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -53,7 +54,7 @@ fun SavageButton(
         },
         enabled = isAbleClick,
         interactionSource = interactionSource,
-        shape = RoundedCornerShape(4.dp),
+        shape = if (!isKeyShow) RoundedCornerShape(4.dp) else RoundedCornerShape(0.dp),
         colors = colors,
         contentPadding = PaddingValues(vertical = 18.dp),
         modifier = modifier

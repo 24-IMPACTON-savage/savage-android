@@ -21,6 +21,7 @@ import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.component.SavageTextField
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
+import team.retum.savage_android.ui.theme.rememberKeyboardIsOpen
 
 @Composable
 private fun Title() {
@@ -50,6 +51,7 @@ fun Join1Screen(
 ) {
 
     var name by remember { mutableStateOf("") }
+    val keyboardShow by rememberKeyboardIsOpen()
 
     SavageAppBar(
         callback = {
@@ -66,13 +68,15 @@ fun Join1Screen(
             SavageTextField(value = name, hint = "성함을 입력해 주세요.", onValueChange = { name = it })
             Spacer(modifier = Modifier.weight(1f))
             SavageButton(
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
                 onClick = {
 
                 },
                 text = "다음",
-                isAbleClick = true
+                isAbleClick = name.isNotBlank(),
+                isKeyShow = keyboardShow
             )
+            if (!keyboardShow)
             Spacer(modifier = Modifier.padding(bottom = 24.dp))
         }
 
