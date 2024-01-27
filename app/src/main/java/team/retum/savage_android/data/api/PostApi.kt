@@ -19,8 +19,8 @@ interface PostApi {
 
     @POST("/post/write")
     suspend fun writePost(
-        writePostRequest: BaseResponse<WritePostRequest>
-    )
+        writePostRequest: WritePostRequest
+    ): BaseResponse<Unit>
 
     @PATCH("/post/{postId}")
     suspend fun updatePost(

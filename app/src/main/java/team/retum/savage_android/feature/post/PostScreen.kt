@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -25,12 +26,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
+import androidx.navigation.NavController
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.launch
+import team.retum.savage_android.data.RetrofitClient
 import team.retum.savage_android.feature.onboarding.join.getAddress
 import team.retum.savage_android.feature.onboarding.join.locationPermissions
+import team.retum.savage_android.feature.root.NavGroup
+import team.retum.savage_android.model.request.WritePostRequest
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.component.SavageTextFieldWithEditBtn
@@ -39,7 +45,9 @@ import team.retum.savage_android.util.Constant
 import team.retum.savage_android.util.PermissionUtil
 
 @Composable
-fun PostScreen() {
+fun PostScreen(
+    navController: NavController
+) {
     val context = LocalContext.current
     var latitude by remember {
         mutableStateOf<Double?>(null)
@@ -76,6 +84,7 @@ fun PostScreen() {
     LaunchedEffect(true) {
         PermissionUtil.requestPermissions(context, locationPermissions, launcherMultiplePermissions)
     }
+    val coroutine = rememberCoroutineScope()
     // 마지막 위치 불러오는 함수
     val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locations: LocationResult) {
@@ -168,7 +177,10 @@ fun PostScreen() {
                     startTime = it.split("~")[0]
                     endTime = it.split("~")[1]
                 },
-                isTextField = false
+                isTextField = false,
+                onclick = {
+                    navController.navigate(NavGroup.Main.PostTime.id)
+                }
             )
             SavageTextFieldWithEditBtn(
                 title = "임금 기준",
@@ -177,25 +189,37 @@ fun PostScreen() {
                     pay = it.split("/")[0]
                     payType = it.split("/")[1]
                 },
-                isTextField = false
+                isTextField = false,
+                onclick = {
+                    navController.navigate(NavGroup.Main.PostPay.id)
+                }
             )
         }
         Spacer(modifier = Modifier.weight(1f))
         Box {
             SavageButton(
-                onClick = { },
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 8.dp)
-                    .savageClickable {  },
+                onClick = {
+                    coroutine.launch {
+                        RetrofitClient.postApi.writePost(
+                            WritePostRequest(
+                                latitude = latitude?: 0.0,
+                                longitude = longitude?: 0.0,
+                                location = location,
+                                todo = doing,
+                                payment = pay.toInt(),
+                                unit = payType,
+                                time = "$startTime ~ $endTime"
+                            )
+                        )
+                    }
+                },
+                modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, bottom = 8.dp)
+                    .savageClickable { },
                 text = "모집하기",
                 isAbleClick = tel.isNotEmpty() && name.isNotEmpty() && location.isNotEmpty() && doing.isNotEmpty() && startTime.isNotEmpty() && endTime.isNotEmpty() && pay.isNotEmpty() && payType.isNotEmpty()
             )
         }
     }
 
-}
-
-@Preview
-@Composable
-fun PostAppBar() {
-    PostScreen()
 }

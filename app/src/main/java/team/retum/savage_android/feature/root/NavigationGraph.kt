@@ -14,6 +14,7 @@ import team.retum.savage_android.feature.onboarding.join.Join1Screen
 import team.retum.savage_android.feature.onboarding.join.Join2Screen
 import team.retum.savage_android.feature.onboarding.login.Login1Screen
 import team.retum.savage_android.feature.onboarding.login.Login2Screen
+import team.retum.savage_android.feature.post.PostScreen
 import team.retum.savage_android.feature.postpay.PostPayScreen
 import team.retum.savage_android.feature.posttime.PostTimeScreen
 import team.retum.savage_android.feature.setting.SettingScreen
@@ -40,9 +41,6 @@ fun NavigationGraph(
             val name = it.arguments?.getString("name")
             Join2Screen(navController = navController, name = name ?: "")
         }
-        composable(NavGroup.Main.Map.id) {
-            FindWorkerScreen()
-        }
         composable(NavGroup.Onboarding.Login2.id + "/{name}") {
             val name = it.arguments?.getString("name")
             Login2Screen(navController = navController, name = name ?: "")
@@ -56,6 +54,9 @@ fun NavigationGraph(
         composable(NavGroup.Main.Complete.id) {
             CompleteScreen()
         }
+        composable(NavGroup.Main.Post.id) {
+            PostScreen(navController = navController)
+        }
         composable(NavGroup.Main.PostTime.id) {
             PostTimeScreen(navController = navController)
         }
@@ -67,6 +68,9 @@ fun NavigationGraph(
         }
         composable(NavGroup.Main.Setting.id) {
             SettingScreen(navController = navController)
+        }
+        composable(NavGroup.Main.Map.id) {
+            FindWorkerScreen()
         }
     }
 }
