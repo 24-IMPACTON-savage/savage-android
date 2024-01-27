@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "savage-android"
+rootProject.name = "savage-android-r"
 include(":app")
