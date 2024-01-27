@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.LocationManager
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -76,6 +77,10 @@ fun FindWorkerScreen() {
         skipHalfExpanded = true,
     )
     val coroutineScope = rememberCoroutineScope()
+
+    BackHandler {
+        
+    }
 
     ModalBottomSheetLayout(
         sheetShape = RoundedCornerShape(
