@@ -46,7 +46,7 @@ fun NavigationGraph(
             Join2Screen(navController = navController, name = name ?: "")
         }
         composable(NavGroup.Main.Map.id) {
-            FindWorkerScreen()
+            FindWorkerScreen(navController = navController)
         }
         composable(NavGroup.Onboarding.Login2.id + "/{name}") {
             val name = it.arguments?.getString("name")
@@ -54,12 +54,6 @@ fun NavigationGraph(
         }
         composable(NavGroup.Onboarding.Login1.id) {
             Login1Screen(navController = navController)
-        }
-        composable(NavGroup.Main.Loading.id) {
-            LoadingScreen()
-        }
-        composable(NavGroup.Main.Complete.id) {
-            CompleteScreen()
         }
         composable(NavGroup.Main.PostTime.id) {
             PostTimeScreen(navController = navController)

@@ -14,9 +14,9 @@ import team.retum.savage_android.R
 import team.retum.savage_android.ui.theme.SavageColor
 
 @Composable
-internal fun CompleteScreen() {
+internal fun CompleteScreen(modifier: Modifier) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Image(

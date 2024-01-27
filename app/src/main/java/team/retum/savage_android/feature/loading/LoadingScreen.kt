@@ -10,9 +10,9 @@ import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 
 @Composable
-internal fun LoadingScreen() {
+internal fun LoadingScreen(modifier: Modifier) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Text(
