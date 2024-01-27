@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import team.retum.savage_android.feature.onboarding.StartScreen
 import team.retum.savage_android.feature.root.NavGroup
 
 
@@ -17,7 +18,7 @@ fun NavigationGraph(
         startDestination = getStartDestination()
     ) {
         composable(NavGroup.Onboarding.Start.id) {
-            Text(text = "start")
+            StartScreen(navController = navController)
         }
     }
 }
