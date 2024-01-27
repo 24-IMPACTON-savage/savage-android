@@ -62,7 +62,7 @@ fun NavigationGraph(
             PostPayScreen(navController = navController)
         }
         composable(NavGroup.Main.MatchingWorker.id) {
-            MatchingWorkerScreen()
+            MatchingWorkerScreen(navController = navController)
         }
         composable(NavGroup.Main.Setting.id) {
             SettingScreen(navController = navController)
