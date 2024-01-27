@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import team.retum.savage_android.feature.findworker.FindWorkerScreen
 import team.retum.savage_android.feature.onboarding.join.Join1Screen
 import team.retum.savage_android.feature.onboarding.join.Join2Screen
 import team.retum.savage_android.feature.onboarding.StartScreen
@@ -28,6 +29,9 @@ fun NavigationGraph(
         composable(NavGroup.Onboarding.Join2.id + "/{name}") {
             val name = it.arguments?.getString("name")
             Join2Screen(navController = navController, name = name ?: "")
+        }
+        composable(NavGroup.Main.Map.id) {
+            FindWorkerScreen()
         }
         composable(NavGroup.Onboarding.Login2.id) {
             Login2Screen(navController = navController)
