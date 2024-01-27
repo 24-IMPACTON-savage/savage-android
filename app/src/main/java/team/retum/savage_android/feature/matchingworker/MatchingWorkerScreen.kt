@@ -98,7 +98,7 @@ internal fun MatchingWorkerScreen(
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 14.dp)
                 .savageClickable(rippleEnable = false) {
-//                     navController.navigate(NavGroup.Main.)
+                     navController.navigate(NavGroup.Main.Membership.id)
                 },
             text = "지금 바로 구독하기",
             style = SavageTypography.Body2,

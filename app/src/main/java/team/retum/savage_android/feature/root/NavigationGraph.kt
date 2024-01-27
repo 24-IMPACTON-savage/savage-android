@@ -69,6 +69,9 @@ fun NavigationGraph(
         composable(NavGroup.Main.Setting.id) {
             SettingScreen(navController = navController)
         }
+        composable(NavGroup.Main.Membership.id) {
+            MembershipScreen(navController = navController)
+        }
     }
 }
 
