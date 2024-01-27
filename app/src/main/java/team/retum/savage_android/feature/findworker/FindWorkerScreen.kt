@@ -35,6 +35,7 @@ import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.MapView
 import team.retum.savage_android.R
+import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
 import team.retum.savage_android.util.setUserLocation
@@ -77,7 +78,7 @@ fun FindWorkerScreen() {
                         color = SavageColor.Primary30,
                     )
             ) {
-                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
+                Spacer(modifier = Modifier.fillMaxHeight(0.05f))
                 Row(
                     modifier = Modifier
                         .padding(bottom = 20.dp),
@@ -121,6 +122,18 @@ fun FindWorkerScreen() {
                     }
                 }
             }
+            SavageButton(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 16.dp,
+                    ),
+                onClick = { },
+                text = "노동자 찾기",
+                isAbleClick = true,
+            )
         }
     }
 }

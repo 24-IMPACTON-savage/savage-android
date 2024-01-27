@@ -18,7 +18,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = getStartDestination()
+        startDestination = NavGroup.Main.Map.id,
     ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
