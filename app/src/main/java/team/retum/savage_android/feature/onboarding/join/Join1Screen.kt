@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
@@ -74,7 +75,10 @@ fun Join1Screen(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
                 onClick = {
                     if (name.isNotBlank()) {
-                        navController.navigate(NavGroup.Onboarding.Join2.id + "/${name}")
+                        navController.navigate(NavGroup.Onboarding.Join2.id + "/${name}") {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                            }
+                        }
                     } else {
                         // handling
                     }
