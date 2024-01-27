@@ -1,4 +1,4 @@
-package team.retum.savage_android.feature.onboarding
+package team.retum.savage_android.feature.onboarding.join
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
