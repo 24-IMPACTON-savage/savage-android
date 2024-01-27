@@ -57,7 +57,7 @@ fun Login2Screen(
         ) {
             Title()
             Spacer(modifier = Modifier.padding(top = 48.dp))
-            SavageTextField(value = tel, hint = "전화번호를 입력해 주세요.", onValueChange = { tel = it })
+            SavageTextField(modifier = Modifier.padding(horizontal = 20.dp), value = tel, hint = "전화번호를 입력해 주세요.", onValueChange = { tel = it })
             Spacer(modifier = Modifier.weight(1f))
             SavageButton(
                 modifier = if (!keyboardShow) Modifier.padding(horizontal = 16.dp) else Modifier,
