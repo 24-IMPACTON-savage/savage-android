@@ -68,9 +68,11 @@ fun SavageTextField(
             contentAlignment = Alignment.CenterStart,
         ) {
             BasicTextField(
-                modifier = Modifier.onFocusChanged {
-                    focused = it.isFocused
-                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged {
+                        focused = it.isFocused
+                    },
                 value = value,
                 onValueChange = onValueChange,
                 textStyle = SavageTypography.Body3,
@@ -83,10 +85,7 @@ fun SavageTextField(
                     .offset(
                         y = y,
                         x = x,
-                    ),
-                text = hint,
-                color = SavageColor.Gray40,
-                style = SavageTypography.Body3
+                    ), text = hint, color = SavageColor.Gray40, style = SavageTypography.Body3
             )
         }
         Divider(
