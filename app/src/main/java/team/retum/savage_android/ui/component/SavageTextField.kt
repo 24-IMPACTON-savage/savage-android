@@ -63,8 +63,8 @@ fun SavageTextField(
                 .fillMaxWidth()
                 .padding(
                     vertical = 12.dp,
-                    horizontal = 16.dp,
-                ),
+                )
+                .padding(start = 4.dp),
             contentAlignment = Alignment.CenterStart,
         ) {
             BasicTextField(
