@@ -277,7 +277,6 @@ fun FindWorkerScreen(
                         }
                     }
                 }
-
             }
 
             1 -> LoadingScreen(modifier = Modifier.alpha(alpha1))
