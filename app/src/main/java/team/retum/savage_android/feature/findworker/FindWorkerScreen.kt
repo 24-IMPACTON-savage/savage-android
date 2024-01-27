@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -285,8 +284,15 @@ fun SetAddress() {
             onValueChange = { value = it },
             hint = "지번, 도로명, 건물명으로 검색",
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = {})
+                .padding(
+                    top = 16.dp,
+                    bottom = 16.dp,
+                ), verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 modifier = Modifier.padding(end = 8.dp),
                 painter = painterResource(id = R.drawable.ic_gps),
@@ -303,7 +309,6 @@ fun SetAddress() {
                 contentDescription = null,
             )
         }
-        Spacer(modifier = Modifier.height(24.dp))
         list.forEach {
             ListItem(
                 farm = it,
@@ -331,36 +336,41 @@ internal fun ListItem(
     farm: Farm,
     onClick: (id: Long) -> Unit,
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                onClick = { onClick(farm.id) },
-            ),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    onClick = { onClick(farm.id) },
+                )
+                .padding(
+                    vertical = 14.dp,
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Column(
+                modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = farm.title,
+                    style = SavageTypography.Body2,
+                )
+                Text(
+                    text = farm.address,
+                    style = SavageTypography.Body1,
+                    color = SavageColor.Gray20,
+                )
+            }
             Text(
-                modifier = Modifier.padding(top = 14.dp),
-                text = farm.title,
+                text = "수정",
+                color = SavageColor.Primary20,
                 style = SavageTypography.Body2,
             )
-            Text(
-                modifier = Modifier.padding(bottom = 12.dp),
-                text = farm.address,
-                style = SavageTypography.Body1,
-                color = SavageColor.Gray20,
-            )
-            Divider(
-                modifier = Modifier.fillMaxWidth(),
-                color = SavageColor.Gray20,
-            )
         }
-        Text(
-            text = "수정",
-            color = SavageColor.Primary20,
-            style = SavageTypography.Body2,
-        )
     }
+    Divider(
+        modifier = Modifier.fillMaxWidth(),
+        color = SavageColor.Gray20,
+    )
 }
