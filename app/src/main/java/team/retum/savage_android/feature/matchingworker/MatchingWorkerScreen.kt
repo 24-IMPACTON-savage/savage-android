@@ -14,10 +14,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import team.retum.savage_android.R
+import team.retum.savage_android.feature.root.NavGroup
 import team.retum.savage_android.ui.component.SavageAppBar
 import team.retum.savage_android.ui.component.SavageButton
 import team.retum.savage_android.ui.theme.SavageColor
 import team.retum.savage_android.ui.theme.SavageTypography
+import team.retum.savage_android.ui.theme.savageClickable
 
 @Composable
 internal fun MatchingWorkerScreen(
@@ -94,7 +96,10 @@ internal fun MatchingWorkerScreen(
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(vertical = 14.dp),
+                .padding(vertical = 14.dp)
+                .savageClickable(rippleEnable = false) {
+//                     navController.navigate(NavGroup.Main.)
+                },
             text = "지금 바로 구독하기",
             style = SavageTypography.Body2,
             color = SavageColor.Primary40,
