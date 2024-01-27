@@ -5,9 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import team.retum.savage_android.feature.findworker.FindWorkerScreen
+import team.retum.savage_android.feature.loading.LoadingScreen
+import team.retum.savage_android.feature.onboarding.StartScreen
 import team.retum.savage_android.feature.onboarding.join.Join1Screen
 import team.retum.savage_android.feature.onboarding.join.Join2Screen
-import team.retum.savage_android.feature.onboarding.StartScreen
 import team.retum.savage_android.feature.onboarding.login.Login1Screen
 import team.retum.savage_android.feature.onboarding.login.Login2Screen
 
@@ -18,7 +19,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavGroup.Onboarding.Start.id,
+        startDestination = NavGroup.Main.Loading.id,
     ) {
         composable(NavGroup.Onboarding.Start.id) {
             StartScreen(navController = navController)
@@ -39,6 +40,9 @@ fun NavigationGraph(
         }
         composable(NavGroup.Onboarding.Login1.id) {
             Login1Screen(navController = navController)
+        }
+        composable(NavGroup.Main.Loading.id) {
+            LoadingScreen()
         }
     }
 }
