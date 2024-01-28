@@ -35,7 +35,7 @@ fun StartScreen(
         Text(
             modifier = Modifier
                 .padding(top = 72.dp),
-            text = "건강한 노동을 시작해 봐요!",
+            text = "건강한 근로를 시작해 봐요!",
             style = SavageTypography.HeadLine1
         )
         Spacer(modifier = Modifier.weight(2f))
